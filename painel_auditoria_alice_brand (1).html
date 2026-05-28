@@ -1,0 +1,415 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --alice-magenta:#BE0380;
+  --alice-dark:#40002D;
+  --alice-magenta-light:#F5E6F0;
+  --alice-magenta-mid:#E8B3D4;
+  --alice-dark-light:#F2E8EE;
+  --ff:'DM Sans',Helvetica Neue,Arial,sans-serif;
+}
+body{font-family:var(--ff);background:transparent;color:var(--alice-dark)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1.5px solid var(--alice-magenta);margin-bottom:20px}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo-mark{width:32px;height:32px;background:var(--alice-magenta);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.logo-mark span{color:#fff;font-size:14px;font-weight:500;letter-spacing:-0.5px}
+.header-title{font-size:16px;font-weight:300;color:var(--alice-dark);letter-spacing:-0.2px}
+.header-sub{font-size:11px;color:var(--alice-magenta);font-weight:400;margin-top:1px}
+.header-badge{font-size:11px;padding:4px 10px;border-radius:99px;background:var(--alice-magenta-light);color:var(--alice-magenta);font-weight:500}
+
+.tabs{display:flex;gap:0;border-bottom:0.5px solid #DDD;margin-bottom:20px;overflow-x:auto}
+.tab{padding:9px 15px;font-size:12px;font-weight:400;cursor:pointer;border:none;background:transparent;color:#888;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-family:var(--ff)}
+.tab.on{color:var(--alice-magenta);border-bottom-color:var(--alice-magenta);font-weight:500}
+.pane{display:none}.pane.on{display:block}
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.m{background:var(--alice-dark);border-radius:10px;padding:14px 16px}
+.ml{font-size:11px;color:var(--alice-magenta-mid);margin-bottom:5px;font-weight:400}
+.mv{font-size:22px;font-weight:300;color:#fff;letter-spacing:-0.5px}
+.ms{font-size:10px;color:#9F7A8E;margin-top:2px}
+.mv-warn{color:#F5A0D0}
+
+.card{background:#fff;border:0.5px solid #E8E0E5;border-radius:12px;padding:16px;margin-bottom:12px}
+.card-title{font-size:13px;font-weight:500;color:var(--alice-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid #EEE}
+.card-accent{border-left:3px solid var(--alice-magenta);border-radius:0;padding-left:14px;padding-top:14px;padding-bottom:14px;padding-right:16px}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500}
+.b-mag{background:var(--alice-magenta-light);color:var(--alice-magenta)}
+.b-dark{background:var(--alice-dark-light);color:var(--alice-dark)}
+.b-green{background:#E6F4EC;color:#1B6B3A}
+.b-amber{background:#FEF3E2;color:#8B5E00}
+.b-red{background:#FDECEA;color:#8B1A10}
+.b-blue{background:#E8F1FB;color:#1A4A8B}
+.b-gray{background:#F4F4F4;color:#555}
+
+.sla-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid #F0E8EC}
+.sla-row:last-child{border-bottom:none}
+.sla-label{font-size:12px;color:var(--alice-dark);flex:1;font-weight:400}
+
+.flow-step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:0.5px solid #F0E8EC}
+.flow-step:last-child{border-bottom:none}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--alice-magenta);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:13px;font-weight:500;color:var(--alice-dark);margin-bottom:3px}
+.step-desc{font-size:12px;color:#666;line-height:1.6}
+.step-sla{font-size:10px;color:var(--alice-magenta);margin-top:4px;font-weight:500}
+
+.enf-card{background:#fff;border:0.5px solid #E8E0E5;border-radius:10px;padding:12px}
+.enf-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;background:var(--alice-magenta-light);color:var(--alice-magenta)}
+.av2{background:var(--alice-dark-light);color:var(--alice-dark)}
+.av3{background:#E8F1FB;color:#1A4A8B}
+
+.cap-bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.cap-bar-label{font-size:11px;color:#666;width:58px;flex-shrink:0}
+.cap-bar-bg{flex:1;height:7px;background:#F4EEF2;border-radius:99px;overflow:hidden;display:flex}
+.cap-seg{height:100%}
+.cap-val{font-size:11px;color:var(--alice-magenta);min-width:70px;text-align:right;font-weight:500}
+
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:#666}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+.week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day-col{border:0.5px solid #E8E0E5;border-radius:10px;overflow:hidden}
+.day-h{padding:8px;font-size:11px;font-weight:500;color:#fff;background:var(--alice-dark);text-align:center;border-bottom:0.5px solid rgba(255,255,255,0.1)}
+.day-h.exc{background:var(--alice-magenta)}
+.day-h.free{background:var(--alice-dark)}
+.slot{padding:8px;border-bottom:0.5px solid #F0E8EC;font-size:11px}
+.slot:last-child{border-bottom:none}
+.slot-enf{font-weight:500;color:var(--alice-dark)}
+.slot-hi{color:#777;font-size:10px;margin-top:2px}
+.slot-med{font-size:10px;color:var(--alice-magenta);margin-top:2px;font-weight:500}
+.empty-slot{padding:10px 8px;font-size:10px;color:#AAA;text-align:center;font-style:italic}
+
+.med-card{background:#fff;border:0.5px solid #E8E0E5;border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.med-name{font-size:13px;font-weight:500;color:var(--alice-dark)}
+.med-his{font-size:11px;color:#888;margin-top:2px}
+.med-dias{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}
+
+.zer-header{display:grid;grid-template-columns:80px 1fr 80px 80px 80px;gap:8px;padding:7px 10px;font-size:10px;color:#999;font-weight:500;text-transform:uppercase;letter-spacing:.04em;border-bottom:0.5px solid #EEE;background:#FAF7F9}
+.zeramento-row{display:grid;grid-template-columns:80px 1fr 80px 80px 80px;gap:8px;padding:9px 10px;border-bottom:0.5px solid #F5EEF2;align-items:center;font-size:12px}
+.zeramento-row:last-child{border-bottom:none}
+.zeramento-row:hover{background:#FDF8FB}
+
+.info-box{padding:10px 14px;background:var(--alice-magenta-light);border-radius:8px;font-size:12px;color:var(--alice-dark);border-left:3px solid var(--alice-magenta)}
+.warn-box{padding:10px 14px;background:#FEF3E2;border-radius:8px;font-size:12px;color:#5D3A00;border-left:3px solid #EF9F27;margin-top:10px}
+
+select{font-size:12px;padding:5px 10px;border-radius:8px;border:0.5px solid #DDD;background:#fff;color:var(--alice-dark);cursor:pointer;font-family:var(--ff)}
+.filters{display:flex;gap:8px;margin-bottom:10px}
+</style>
+
+<h2 class="sr-only">Painel de gestão de auditorias — time de análise de fraude Alice</h2>
+<div style="padding:1rem 0 0">
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo-mark"><span>A</span></div>
+    <div>
+      <div class="header-title">Gestão de auditorias in loco</div>
+      <div class="header-sub">Time de Análise de Fraude</div>
+    </div>
+  </div>
+  <span class="header-badge">14 pendentes</span>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="tab('cap')">Capacidade</button>
+  <button class="tab" onclick="tab('fluxo')">Fluxo + SLA</button>
+  <button class="tab" onclick="tab('zer')">Plano de zeramento</button>
+  <button class="tab" onclick="tab('sem')">Semana modelo</button>
+  <button class="tab" onclick="tab('med')">Médicos auditores</button>
+</div>
+
+<div id="pane-cap" class="pane on">
+  <div class="metrics">
+    <div class="m"><div class="ml">Horas úteis / semana (time)</div><div class="mv">88h</div><div class="ms">~29h por enfermeira</div></div>
+    <div class="m"><div class="ml">Horas disponíveis p/ auditoria</div><div class="mv">~18h</div><div class="ms">após triagem + reuniões</div></div>
+    <div class="m"><div class="ml">Auditorias possíveis / semana</div><div class="mv">6–9</div><div class="ms">estimando 2–3h por visita</div></div>
+    <div class="m"><div class="ml">Pendentes para zerar</div><div class="mv mv-warn">14</div><div class="ms">~2 semanas com o plano</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Distribuição de horas por dia — por enfermeira</div>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#BE0380"></div>Reuniões</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#F5A0D0"></div>Main bets</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#40002D"></div>Triagem alertas</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#1B6B3A"></div>Auditoria in loco</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#DDD"></div>Análise / outras</div>
+    </div>
+
+    <div style="font-size:11px;color:#888;font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em">Segunda — 5h úteis (somente imediata)</div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Flávia</span><div class="cap-bar-bg"><div class="cap-seg" style="width:40%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:20%;background:#40002D"></div><div class="cap-seg" style="width:20%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Karine</span><div class="cap-bar-bg"><div class="cap-seg" style="width:40%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:20%;background:#40002D"></div><div class="cap-seg" style="width:20%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Agatha</span><div class="cap-bar-bg"><div class="cap-seg" style="width:40%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:20%;background:#40002D"></div><div class="cap-seg" style="width:20%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+
+    <div style="font-size:11px;color:#888;font-weight:500;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.04em">Terça / Quinta — 6h úteis (janela preferencial)</div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Flávia</span><div class="cap-bar-bg"><div class="cap-seg" style="width:17%;background:#BE0380"></div><div class="cap-seg" style="width:17%;background:#F5A0D0"></div><div class="cap-seg" style="width:16%;background:#40002D"></div><div class="cap-seg" style="width:33%;background:#1B6B3A"></div><div class="cap-seg" style="width:17%;background:#DDD"></div></div><span class="cap-val">~2h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Karine</span><div class="cap-bar-bg"><div class="cap-seg" style="width:17%;background:#BE0380"></div><div class="cap-seg" style="width:17%;background:#F5A0D0"></div><div class="cap-seg" style="width:16%;background:#40002D"></div><div class="cap-seg" style="width:33%;background:#1B6B3A"></div><div class="cap-seg" style="width:17%;background:#DDD"></div></div><span class="cap-val">~2h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Agatha</span><div class="cap-bar-bg"><div class="cap-seg" style="width:17%;background:#BE0380"></div><div class="cap-seg" style="width:17%;background:#F5A0D0"></div><div class="cap-seg" style="width:16%;background:#40002D"></div><div class="cap-seg" style="width:33%;background:#1B6B3A"></div><div class="cap-seg" style="width:17%;background:#DDD"></div></div><span class="cap-val">~2h auditoria</span></div>
+
+    <div style="font-size:11px;color:#888;font-weight:500;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.04em">Quarta — 7h úteis (no meeting day, melhor janela)</div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Flávia</span><div class="cap-bar-bg"><div class="cap-seg" style="width:14%;background:#F5A0D0"></div><div class="cap-seg" style="width:14%;background:#40002D"></div><div class="cap-seg" style="width:43%;background:#1B6B3A"></div><div class="cap-seg" style="width:29%;background:#DDD"></div></div><span class="cap-val">~3h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Karine</span><div class="cap-bar-bg"><div class="cap-seg" style="width:14%;background:#F5A0D0"></div><div class="cap-seg" style="width:14%;background:#40002D"></div><div class="cap-seg" style="width:43%;background:#1B6B3A"></div><div class="cap-seg" style="width:29%;background:#DDD"></div></div><span class="cap-val">~3h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Agatha</span><div class="cap-bar-bg"><div class="cap-seg" style="width:14%;background:#F5A0D0"></div><div class="cap-seg" style="width:14%;background:#40002D"></div><div class="cap-seg" style="width:43%;background:#1B6B3A"></div><div class="cap-seg" style="width:29%;background:#DDD"></div></div><span class="cap-val">~3h auditoria</span></div>
+
+    <div style="font-size:11px;color:#888;font-weight:500;margin:14px 0 8px;text-transform:uppercase;letter-spacing:.04em">Sexta — 5h úteis (saída 1h antes, sem auditoria)</div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Flávia</span><div class="cap-bar-bg"><div class="cap-seg" style="width:20%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:30%;background:#40002D"></div><div class="cap-seg" style="width:30%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Karine</span><div class="cap-bar-bg"><div class="cap-seg" style="width:20%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:30%;background:#40002D"></div><div class="cap-seg" style="width:30%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+    <div class="cap-bar-wrap"><span class="cap-bar-label">Agatha</span><div class="cap-bar-bg"><div class="cap-seg" style="width:20%;background:#BE0380"></div><div class="cap-seg" style="width:20%;background:#F5A0D0"></div><div class="cap-seg" style="width:30%;background:#40002D"></div><div class="cap-seg" style="width:30%;background:#DDD"></div></div><span class="cap-val">0h auditoria</span></div>
+  </div>
+
+  <div class="row3">
+    <div class="enf-card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <div class="enf-avatar">FB</div>
+        <div style="font-size:13px;font-weight:500;color:var(--alice-dark)">Flávia Beijós</div>
+      </div>
+      <div style="font-size:11px;color:#666;margin-bottom:4px">20 casos · 75% concluídos</div>
+      <div style="font-size:11px;color:var(--alice-magenta);font-weight:500">5 pendentes</div>
+    </div>
+    <div class="enf-card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <div class="enf-avatar av2">KF</div>
+        <div style="font-size:13px;font-weight:500;color:var(--alice-dark)">Karine Figueiredo</div>
+      </div>
+      <div style="font-size:11px;color:#666;margin-bottom:4px">16 casos · 56% concluídos</div>
+      <div style="font-size:11px;color:var(--alice-magenta);font-weight:500">7 pendentes — maior carga</div>
+    </div>
+    <div class="enf-card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <div class="enf-avatar av3">AM</div>
+        <div style="font-size:13px;font-weight:500;color:var(--alice-dark)">Agatha Moreno</div>
+      </div>
+      <div style="font-size:11px;color:#666;margin-bottom:4px">8 casos · 75% concluídos</div>
+      <div style="font-size:11px;color:var(--alice-magenta);font-weight:500">2 pendentes</div>
+    </div>
+  </div>
+</div>
+
+<div id="pane-fluxo" class="pane">
+  <div class="row2">
+    <div class="card">
+      <div class="card-title">Critérios de elegibilidade</div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#BE0380;flex-shrink:0"></div><div class="sla-label">Suspeita de omissão em internação ativa</div><span class="badge b-red">Imediata</span></div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#BE0380;flex-shrink:0"></div><div class="sla-label">Alto impacto financeiro ou risco assistencial</div><span class="badge b-red">Imediata</span></div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#F5A0D0;flex-shrink:0"></div><div class="sla-label">Suspeita de múltiplos agentes (membro + HI)</div><span class="badge b-amber">Alta</span></div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#F5A0D0;flex-shrink:0"></div><div class="sla-label">HI sem fluxo estabelecido de auditoria técnica</div><span class="badge b-amber">Alta</span></div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#DDD;flex-shrink:0"></div><div class="sla-label">Suspeita isolada sem urgência assistencial</div><span class="badge b-green">Cronograma</span></div>
+      <div class="sla-row"><div style="width:7px;height:7px;border-radius:50%;background:#DDD;flex-shrink:0"></div><div class="sla-label">Médico auditor já alocado na HI — acionar primeiro</div><span class="badge b-blue">Delegar</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">SLAs por prioridade</div>
+      <div class="sla-row"><span class="badge b-red" style="min-width:68px;text-align:center">Imediata</span><div class="sla-label" style="margin-left:8px">Visita em até <strong>1 dia útil</strong></div></div>
+      <div class="sla-row"><span class="badge b-amber" style="min-width:68px;text-align:center">Alta</span><div class="sla-label" style="margin-left:8px">Visita em até <strong>3 dias úteis</strong></div></div>
+      <div class="sla-row"><span class="badge b-green" style="min-width:68px;text-align:center">Cronograma</span><div class="sla-label" style="margin-left:8px">Visita em até <strong>7 dias úteis</strong></div></div>
+      <div class="sla-row"><span class="badge b-blue" style="min-width:68px;text-align:center">Delegar</span><div class="sla-label" style="margin-left:8px">WF para médico auditor em <strong>1 dia útil</strong></div></div>
+      <div class="info-box" style="margin-top:12px">Relatório: até <strong>24h após a visita</strong>.<br>Pasta de rescisão (quando aplicável): até <strong>2 dias úteis</strong> após conclusão.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Fluxo de decisão — da solicitação à conclusão</div>
+    <div class="flow-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Solicitação via WF no Slack <span class="badge b-gray" style="margin-left:6px">canal enfs_fraude</span></div><div class="step-desc">CPF, HI, contexto, prioridade sugerida e data. WF alimenta automaticamente o cronograma.</div><div class="step-sla">Responsável: quem abre o caso · Imediato</div></div></div>
+    <div class="flow-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Triagem e classificação <span class="badge b-amber" style="margin-left:6px">diária até meio-dia</span></div><div class="step-desc">Enfermeira de plantão revisa novas solicitações, confirma prioridade e verifica se há médico auditor alocado na HI. Se sim, delega. Se não, aloca no rodízio.</div><div class="step-sla">Responsável: enfermeira de plantão · Até 4h da abertura</div></div></div>
+    <div class="flow-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Verificação do médico auditor na HI</div><div class="step-desc">Consultar cronograma dos médicos. Se Marília, Johnatan, Andrea ou Paulo têm visita na HI na mesma semana, acionar via WF — não duplicar a visita.</div><div class="step-sla">Responsável: quem triou · Junto com passo 2</div></div></div>
+    <div class="flow-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Agendamento no cronograma <span class="badge b-green" style="margin-left:6px">bloqueio obrigatório</span></div><div class="step-desc">Inserir data imediatamente após triagem. Agrupar visitas na mesma HI. Imediata: alocar no próximo dia útil disponível (preferencialmente ter–qui).</div><div class="step-sla">Responsável: quem triou · Mesmo dia</div></div></div>
+    <div class="flow-step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Visita e coleta de evidências</div><div class="step-desc">Prontuários, evoluções, exames, prescrições. Registro via Forms. Checklist de conformidade preenchido no local.</div><div class="step-sla">Responsável: enfermeira alocada · Conforme agenda</div></div></div>
+    <div class="flow-step"><div class="step-num">6</div><div class="step-body"><div class="step-title">Relatório e encaminhamento</div><div class="step-desc">Relatório padronizado entregue em até 24h. Evidência conclusiva de fraude: iniciar pasta de rescisão. Inconclusivo: registrar e arquivar.</div><div class="step-sla">Responsável: quem fez a visita · Até 24h após visita</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Regras fixas do fluxo</div>
+    <div class="row2">
+      <div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-calendar-week" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Janela preferencial: terça, quarta e quinta</div></div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-alert-triangle" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Segunda e sexta: somente casos imediatos</div></div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-users" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Rodízio obrigatório entre as 3 enfermeiras</div></div>
+      </div>
+      <div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-map-pin" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Agrupar visitas na mesma HI sempre que possível</div></div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-clock" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Máximo 2 visitas por enfermeira por dia</div></div>
+        <div class="sla-row"><div class="sla-label"><i class="ti ti-file-text" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:var(--alice-magenta)" aria-hidden="true"></i>Nenhum caso fica sem data por mais de 24h</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="pane-zer" class="pane">
+  <div class="metrics">
+    <div class="m"><div class="ml">Pendentes totais</div><div class="mv mv-warn">14</div><div class="ms">a zerar</div></div>
+    <div class="m"><div class="ml">Semanas estimadas</div><div class="mv">2</div><div class="ms">com janelas ter/qua/qui</div></div>
+    <div class="m"><div class="ml">Visitas / semana necessárias</div><div class="mv">7</div><div class="ms">~2–3 por enfermeira</div></div>
+    <div class="m"><div class="ml">Médicos que cobrem HIs pendentes</div><div class="mv">3</div><div class="ms">Johnatan, Marília, Paulo</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Distribuição dos 14 casos — 2 semanas</div>
+    <div class="filters">
+      <select id="zer-enf" onchange="zerFilter()"><option value="">Todas enfermeiras</option><option>Flávia</option><option>Karine</option><option>Agatha</option></select>
+      <select id="zer-sem" onchange="zerFilter()"><option value="">Todas semanas</option><option value="S1">Semana 1 (26–30/mai)</option><option value="S2">Semana 2 (02–06/jun)</option></select>
+    </div>
+    <div style="border:0.5px solid #E8E0E5;border-radius:10px;overflow:hidden">
+      <div class="zer-header"><span>Código</span><span>Hospital</span><span>Responsável</span><span>Semana</span><span>Ação</span></div>
+      <div id="zer-list"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Estratégia de agrupamento por HI</div>
+    <div class="sla-row"><span class="badge b-blue" style="min-width:100px;text-align:center">Sírio Libanês</span><div class="sla-label" style="margin-left:8px">4 casos — Karine agrupa em 2 visitas (verificar se Johnatan tem acesso)</div></div>
+    <div class="sla-row"><span class="badge b-mag" style="min-width:100px;text-align:center">Santa Joana</span><div class="sla-label" style="margin-left:8px">5 casos — Karine + Agatha dividem; Marília já está na HI 2–3x/semana</div></div>
+    <div class="sla-row"><span class="badge b-gray" style="min-width:100px;text-align:center">Oswaldo Cruz</span><div class="sla-label" style="margin-left:8px">1 caso (Flávia) — Andrea tem presença na HAOC; verificar acesso</div></div>
+    <div class="sla-row"><span class="badge b-dark" style="min-width:100px;text-align:center">Alvorada</span><div class="sla-label" style="margin-left:8px">1 caso — acionar Paulo Damiani (está na HI ter e qui toda semana)</div></div>
+    <div class="sla-row"><span class="badge b-gray" style="min-width:100px;text-align:center">Demais HIs</span><div class="sla-label" style="margin-left:8px">Einstein, BP, Incor, Metropolitano — 1 por visita no rodízio</div></div>
+  </div>
+</div>
+
+<div id="pane-sem" class="pane">
+  <div class="info-box" style="margin-bottom:14px">Modelo de semana com as janelas reais de cada enfermeira. Auditorias concentradas terça a quinta — segunda e sexta reservadas para triagem, main bets e reuniões.</div>
+  <div class="week-grid">
+    <div class="day-col">
+      <div class="day-h exc">Segunda<br><span style="font-size:9px;font-weight:300;opacity:.9">5h úteis · somente imediata</span></div>
+      <div class="slot"><div class="slot-enf">Todas</div><div class="slot-hi">Triagem de alertas + análises</div></div>
+      <div class="slot"><div class="slot-enf">Todas</div><div class="slot-hi">Main bets (1h) + reuniões (2h)</div></div>
+    </div>
+    <div class="day-col">
+      <div class="day-h free">Terça<br><span style="font-size:9px;font-weight:300;opacity:.9">6h úteis · auditoria preferencial</span></div>
+      <div class="slot"><div class="slot-enf">Karine</div><div class="slot-hi">Sírio — NC1WEJ0 + NC1ZHH8</div><div class="slot-med">Johnatan também na HI</div></div>
+      <div class="slot"><div class="slot-enf">Flávia</div><div class="slot-hi">Einstein — NC1FLSH</div></div>
+      <div class="slot"><div class="slot-enf">Agatha</div><div class="slot-hi">Santa Joana — NC1TNU0</div><div class="slot-med">Marília também na HI</div></div>
+    </div>
+    <div class="day-col">
+      <div class="day-h free">Quarta<br><span style="font-size:9px;font-weight:300;opacity:.9">7h úteis · no meeting day</span></div>
+      <div class="slot"><div class="slot-enf">Karine</div><div class="slot-hi">Sírio — NC1YS9X + NC1KVB4</div></div>
+      <div class="slot"><div class="slot-enf">Flávia</div><div class="slot-hi">Oswaldo Cruz — NC1OXSA</div></div>
+      <div class="slot"><div class="slot-enf">Agatha</div><div class="slot-hi">Santa Joana — NC18C34</div></div>
+    </div>
+    <div class="day-col">
+      <div class="day-h free">Quinta<br><span style="font-size:9px;font-weight:300;opacity:.9">6h úteis · auditoria preferencial</span></div>
+      <div class="slot"><div class="slot-enf">Flávia</div><div class="slot-hi">BP — NC1TGTQ</div></div>
+      <div class="slot"><div class="slot-enf">Agatha</div><div class="slot-hi">Santa Joana — NC1IS0D</div></div>
+      <div class="slot"><div class="slot-enf">Karine</div><div class="slot-hi">Reserva / relatórios</div></div>
+    </div>
+    <div class="day-col">
+      <div class="day-h exc">Sexta<br><span style="font-size:9px;font-weight:300;opacity:.9">5h úteis · saída 1h antes</span></div>
+      <div class="slot"><div class="slot-enf">Todas</div><div class="slot-hi">Relatórios das visitas</div></div>
+      <div class="slot"><div class="slot-enf">Todas</div><div class="slot-hi">Main bets + triagem</div></div>
+      <div class="empty-slot">Sem auditoria in loco</div>
+    </div>
+  </div>
+  <div class="warn-box">NC1JDFV e NC1CNBL (Santa Joana, 19/mai) já agendados. NC1TDHT (Alvorada) e NC1OUBJ (Metropolitano) sem data — incluir na semana 2. Redistribuir 1–2 casos da Karine para a Agatha se necessário.</div>
+</div>
+
+<div id="pane-med" class="pane">
+  <div style="font-size:12px;color:#666;margin-bottom:14px">Regra prática: antes de alocar uma enfermeira, verificar se algum desses 4 médicos já tem visita na HI na mesma semana. Se sim, acionar via WF e enviar o contexto do caso.</div>
+  <div class="med-card">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="enf-avatar av3">JR</div>
+      <div><div class="med-name">Johnatan Rosa Góis</div><div class="med-his">BP · HNIPO · INCOR · Leforte · Grupo SJ</div></div>
+    </div>
+    <div class="med-dias">
+      <span class="badge b-blue">BP — ter/qua (semanal)</span>
+      <span class="badge b-blue">HNIPO — qui/sex</span>
+      <span class="badge b-blue">INCOR — qui (quinzenal)</span>
+      <span class="badge b-blue">Leforte — seg/ter</span>
+      <span class="badge b-blue">Grupo SJ — ter (19/mai)</span>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--alice-magenta);font-weight:500">Acionar para: NC1WEJ0, NC1ZHH8, NC1YS9X, NC1KVB4 (Sírio — verificar acesso) e casos INCOR</div>
+  </div>
+  <div class="med-card">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="enf-avatar">MM</div>
+      <div><div class="med-name">Marília Marques de Oliveira</div><div class="med-his">Grupo SJ · Grupo São Camilo · HNIPO</div></div>
+    </div>
+    <div class="med-dias">
+      <span class="badge b-mag">Grupo SJ — seg/ter/qua (2–3x/semana)</span>
+      <span class="badge b-mag">São Camilo — ter/qui</span>
+      <span class="badge b-mag">HNIPO — quinzenal</span>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--alice-magenta);font-weight:500">Acionar para: NC1JDFV, NC1IS0D, NC1CNBL, NC1TNU0, NC18C34 — ela já está no Grupo SJ múltiplas vezes/semana</div>
+  </div>
+  <div class="med-card">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="enf-avatar av2">AD</div>
+      <div><div class="med-name">Andrea Maldonado Diz</div><div class="med-his">HCOR · HIAE · Santa Catarina · BP · HAOC</div></div>
+    </div>
+    <div class="med-dias">
+      <span class="badge b-dark">HCOR — ter/qui (semanal)</span>
+      <span class="badge b-dark">HIAE — ter/qui (semanal)</span>
+      <span class="badge b-dark">Santa Catarina — ter/qui</span>
+      <span class="badge b-dark">BP — quinzenal</span>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--alice-magenta);font-weight:500">Acionar para: NC1M6NW (Incor) e casos Oswaldo Cruz — verificar se Andrea tem acesso à HAOC para o NC1OXSA</div>
+  </div>
+  <div class="med-card">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="enf-avatar" style="background:#FEF3E2;color:#8B5E00">PD</div>
+      <div><div class="med-name">Paulo Fernando Cauduro Damiani</div><div class="med-his">HAOC · HEV · Alvorada · Leforte · BP</div></div>
+    </div>
+    <div class="med-dias">
+      <span class="badge b-amber">HAOC — seg/ter/qui (semanal)</span>
+      <span class="badge b-amber">HEV — qui (semanal)</span>
+      <span class="badge b-amber">Alvorada — ter/qui</span>
+      <span class="badge b-amber">Leforte — quinzenal</span>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--alice-magenta);font-weight:500">Acionar para: NC1TDHT (Alvorada) — Paulo está na HI ter e qui toda semana. Oportunidade imediata de delegação.</div>
+  </div>
+</div>
+</div>
+
+<script>
+const zerData=[
+  {code:'NC1JDFV',hi:'Santa Joana',resp:'Karine',sem:'S1',acao:'Visita + Marília',badge:'b-mag'},
+  {code:'NC1IS0D',hi:'Santa Joana',resp:'Agatha',sem:'S1',acao:'Visita + Marília',badge:'b-mag'},
+  {code:'NC1CNBL',hi:'Santa Joana',resp:'Karine',sem:'S1',acao:'Visita + Marília',badge:'b-mag'},
+  {code:'NC18C34',hi:'Santa Joana',resp:'Agatha',sem:'S1',acao:'Visita',badge:'b-green'},
+  {code:'NC1WEJ0',hi:'Sírio Libanês',resp:'Karine',sem:'S1',acao:'Visita',badge:'b-blue'},
+  {code:'NC1ZHH8',hi:'Sírio Libanês',resp:'Karine',sem:'S1',acao:'Visita',badge:'b-blue'},
+  {code:'NC1YS9X',hi:'Sírio Libanês',resp:'Karine',sem:'S1',acao:'Visita',badge:'b-blue'},
+  {code:'NC1KVB4',hi:'Sírio Libanês',resp:'Karine',sem:'S1',acao:'Visita',badge:'b-blue'},
+  {code:'NC1FLSH',hi:'Albert Einstein',resp:'Flávia',sem:'S1',acao:'Visita',badge:'b-green'},
+  {code:'NC1TNU0',hi:'Santa Joana',resp:'Agatha',sem:'S1',acao:'Visita + Marília',badge:'b-mag'},
+  {code:'NC1OXSA',hi:'Oswaldo Cruz',resp:'Flávia',sem:'S2',acao:'Visita',badge:'b-green'},
+  {code:'NC1TGTQ',hi:'Beneficência Port.',resp:'Flávia',sem:'S2',acao:'Visita',badge:'b-green'},
+  {code:'NC1TDHT',hi:'Alvorada',resp:'Karine',sem:'S2',acao:'Acionar Paulo D.',badge:'b-amber'},
+  {code:'NC1OUBJ',hi:'Metropolitano',resp:'Karine',sem:'S2',acao:'Visita',badge:'b-green'},
+  {code:'NC1M6NW',hi:'Incor',resp:'Flávia',sem:'S2',acao:'Acionar Johnatan',badge:'b-amber'},
+];
+
+function renderZer(data){
+  document.getElementById('zer-list').innerHTML=data.map(r=>`
+    <div class="zeramento-row">
+      <span style="font-family:monospace;font-size:10px;color:#888">${r.code}</span>
+      <span style="color:var(--alice-dark)">${r.hi}</span>
+      <span style="font-size:11px;color:#666">${r.resp}</span>
+      <span class="badge ${r.sem==='S1'?'b-green':'b-blue'}" style="font-size:10px">${r.sem==='S1'?'Semana 1':'Semana 2'}</span>
+      <span class="badge ${r.badge}" style="font-size:10px">${r.acao}</span>
+    </div>`).join('');
+}
+renderZer(zerData);
+
+function zerFilter(){
+  const enf=document.getElementById('zer-enf').value;
+  const sem=document.getElementById('zer-sem').value;
+  renderZer(zerData.filter(r=>{
+    if(enf&&!r.resp.includes(enf))return false;
+    if(sem&&r.sem!==sem)return false;
+    return true;
+  }));
+}
+
+function tab(id){
+  const ids=['cap','fluxo','zer','sem','med'];
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',ids[i]===id));
+  document.querySelectorAll('.pane').forEach(el=>el.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on');
+}
+</script>
